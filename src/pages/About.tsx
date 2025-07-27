@@ -167,7 +167,7 @@ export default function NosotrosPage() {
               <div className="relative">
                 <div className="relative z-10">
                   <img
-                    src="/placeholder.svg?height=500&width=400"
+                    src="./public/2ded5dff-ad3c-4662-8cd0-b7a2214c6249.jpeg"
                     alt="Profesor Rafael Villegas"
                     className="rounded-2xl shadow-2xl w-full max-w-md mx-auto"
                   />
