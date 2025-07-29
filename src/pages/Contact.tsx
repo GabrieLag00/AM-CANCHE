@@ -44,17 +44,8 @@ export default function ContactoPage() {
     message: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-
   useEffect(() => {
     setIsVisible(true)
-
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
-    }
-
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -194,10 +185,6 @@ export default function ContactoPage() {
     },
   ]
 
-  const parallaxOffset = {
-    x: (mousePosition.x - window.innerWidth / 2) * 0.005,
-    y: (mousePosition.y - window.innerHeight / 2) * 0.005,
-  }
 
   return (
     <div className="min-h-screen bg-white overflow-hidden">

@@ -35,8 +35,8 @@ export default function RecursosPage() {
   const [selectedCategory, setSelectedCategory] = useState("Todos")
   const [selectedType, setSelectedType] = useState("Todos")
   const [searchTerm, setSearchTerm] = useState("")
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [, setHoveredCard] = useState<number | null>(null)
+  const [, setMousePosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
     setIsVisible(true)
@@ -221,10 +221,6 @@ export default function RecursosPage() {
 
   const totalDownloads = resources.reduce((sum, resource) => sum + resource.downloads, 0)
 
-  const parallaxOffset = {
-    x: (mousePosition.x - window.innerWidth / 2) * 0.005,
-    y: (mousePosition.y - window.innerHeight / 2) * 0.005,
-  }
 
   return (
     <div className="min-h-screen bg-white overflow-hidden">

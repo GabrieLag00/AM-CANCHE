@@ -31,7 +31,7 @@ export default function CursosPage() {
   const [isVisible, setIsVisible] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState("Todos")
   const [searchTerm, setSearchTerm] = useState("")
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null)
+  const [, setHoveredCard] = useState<number | null>(null)
 
   useEffect(() => {
     setIsVisible(true)
