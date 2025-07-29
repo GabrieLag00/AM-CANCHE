@@ -2,232 +2,257 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import {
-  Code,
-  BookOpen,
-  Users,
-  Star,
-  Target,
-  Lightbulb,
-  ArrowRight,
-  CheckCircle,
-  Globe,
-  Coffee,
-  Heart,
-  Rocket,
-  GraduationCap,
-  Clock,
-  Mail,
-  Calendar,
-  User,
-  Quote,
-  TrendingUp,
-  Zap,
-  Shield,
-  Compass,
-  BookMarked,
-} from "lucide-react"
 import Navigation from "@/components/Navigation"
+import { ArrowUpRight, Code, ChevronRight, Circle, Sparkles, Brain, Target, Users } from "lucide-react"
 
-export default function NosotrosPage() {
-
+export default function AboutPage() {
   const [isVisible, setIsVisible] = useState(false)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
     setIsVisible(true)
+
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY })
+    }
+
+    window.addEventListener("mousemove", handleMouseMove)
+    return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [])
 
   const timeline = [
     {
       year: "2010",
-      title: "Inicio en la Docencia",
-      description: "Comenzó como profesor universitario de programación",
-      icon: <GraduationCap className="h-5 w-5" />,
+      title: "FUNDACIÓN",
+      description: "Comenzó como profesor universitario de programación con visión de educación tecnológica accesible",
     },
     {
       year: "2015",
-      title: "Especialización en Metodologías",
-      description: "Desarrolló técnicas innovadoras para enseñar programación",
-      icon: <Lightbulb className="h-5 w-5" />,
+      title: "INNOVACIÓN",
+      description: "Desarrolló metodologías revolucionarias para enseñar conceptos complejos de programación",
     },
     {
       year: "2018",
-      title: "Creación de Contenido",
-      description: "Empezó a crear material didáctico especializado",
-      icon: <BookMarked className="h-5 w-5" />,
+      title: "EXPANSIÓN",
+      description: "Creó currículum integral cubriendo frameworks modernos de desarrollo",
     },
     {
       year: "2024",
-      title: "Lanzamiento de la Plataforma",
-      description: "Nace CodeAcademy Pro para democratizar la educación",
-      icon: <Rocket className="h-5 w-5" />,
-    },
-  ]
-
-  const values = [
-    {
-      icon: <Heart className="h-8 w-8" />,
-      title: "Pasión por Enseñar",
-      description: "Cada estudiante merece una educación de calidad, clara y accesible",
-    },
-    {
-      icon: <Shield className="h-8 w-8" />,
-      title: "Contenido Confiable",
-      description: "Material verificado y actualizado constantemente por expertos",
-    },
-    {
-      icon: <Users className="h-8 w-8" />,
-      title: "Comunidad Inclusiva",
-      description: "Un espacio seguro donde todos pueden aprender sin prejuicios",
-    },
-    {
-      icon: <TrendingUp className="h-8 w-8" />,
-      title: "Crecimiento Continuo",
-      description: "Evolucionamos constantemente para ofrecer la mejor experiencia",
+      title: "EVOLUCIÓN",
+      description: "Lanzó CODELAB para democratizar el acceso a educación de programación de vanguardia",
     },
   ]
 
   const achievements = [
-    { number: "15+", label: "Años de Experiencia", icon: <Clock className="h-5 w-5" /> },
-    { number: "5000+", label: "Estudiantes Formados", icon: <Users className="h-5 w-5" /> },
-    { number: "98%", label: "Satisfacción", icon: <Star className="h-5 w-5" /> },
-    { number: "50+", label: "Cursos Creados", icon: <BookOpen className="h-5 w-5" /> },
+    { number: "15+", label: "AÑOS", sublabel: "EXPERIENCIA" },
+    { number: "5000+", label: "ESTUDIANTES", sublabel: "FORMADOS" },
+    { number: "98%", label: "ÉXITO", sublabel: "TASA" },
+    { number: "50+", label: "CURSOS", sublabel: "CREADOS" },
   ]
 
+  const principles = [
+    {
+      title: "TECNOLOGÍA ÉTICA",
+      description: "Construyendo soluciones de IA y software responsables que beneficien a la humanidad",
+      icon: <Brain className="h-5 w-5" />,
+    },
+    {
+      title: "EXCELENCIA COGNITIVA",
+      description: "Desarrollando pensamiento crítico a través de desafíos de programación prácticos",
+      icon: <Target className="h-5 w-5" />,
+    },
+    {
+      title: "HABILIDADES DEL FUTURO",
+      description: "Preparando desarrolladores para tecnologías emergentes y demandas de la industria",
+      icon: <Sparkles className="h-5 w-5" />,
+    },
+    {
+      title: "APRENDIZAJE INCLUSIVO",
+      description: "Creando caminos educativos accesibles para diversos orígenes y experiencias",
+      icon: <Users className="h-5 w-5" />,
+    },
+  ]
+
+  const parallaxOffset = {
+    x: (mousePosition.x - window.innerWidth / 2) * 0.005,
+    y: (mousePosition.y - window.innerHeight / 2) * 0.005,
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      {/* Header */}
+    <div className="min-h-screen bg-white overflow-hidden">
       <Navigation />
 
+      {/* Elementos de fondo animados */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute top-20 left-10 w-2 h-2 bg-black rounded-full animate-pulse"></div>
+        <div
+          className="absolute top-40 right-20 w-1 h-1 bg-gray-400 rounded-full animate-bounce"
+          style={{ animationDelay: "1s" }}
+        ></div>
+        <div
+          className="absolute bottom-40 left-20 w-1.5 h-1.5 bg-black rounded-full animate-pulse"
+          style={{ animationDelay: "2s" }}
+        ></div>
+      </div>
+
       {/* Hero Section */}
-      <section className="py-20 px-4">
+      <section className="pt-32 pb-20 px-6">
         <div className="container mx-auto">
-          <div
-            className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-          >
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <Badge className="mb-6 bg-blue-100 text-blue-800 hover:bg-blue-200 px-4 py-2">
-                  <User className="h-4 w-4 mr-2" />
-                  Conoce al Profesor
-                </Badge>
+          <div className="max-w-6xl mx-auto">
+            <div
+              className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+            >
+              <div className="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                  <Badge className="bg-gray-100 text-gray-800 border-0 font-medium tracking-wide mb-8 hover:bg-black hover:text-white transition-all duration-500 cursor-pointer hover:scale-110">
+                    ARQUITECTO
+                  </Badge>
 
-                <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-800 leading-tight">
-                  Profesor{" "}
-                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    Rafael Villegas
-                  </span>
-                </h1>
+                  <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-black leading-none mb-8">
+                    <span className="inline-block hover:scale-105 transition-transform duration-300 cursor-default">
+                      PROF.
+                    </span>
+                    <br />
+                    <span className="inline-block hover:scale-105 transition-transform duration-300 cursor-default">
+                      RAFAEL
+                    </span>
+                    <br />
+                    <span className="inline-block hover:scale-105 transition-transform duration-300 cursor-default text-gray-400">
+                      VILLEGAS
+                    </span>
+                  </h1>
 
-                <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                  Con más de 15 años de experiencia en la docencia universitaria, el profesor Rafael ha dedicado su
-                  carrera a hacer que la programación sea accesible para todos. Su pasión por la enseñanza y su
-                  metodología única han transformado la vida de miles de estudiantes.
-                </p>
+                  <p className="text-lg text-gray-600 font-medium tracking-wide leading-relaxed mb-12">
+                    INGENIERÍA DE ECOSISTEMAS DIGITALES DEL MAÑANA A TRAVÉS DE TECNOLOGÍA ÉTICA Y EXCELENCIA COGNITIVA
+                  </p>
 
-                <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                  <Button
-                    size="lg"
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4"
-                  >
-                    <Mail className="h-5 w-5 mr-2" />
-                    Contactar
-                  </Button>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-4 bg-transparent"
-                  >
-                    <Calendar className="h-5 w-5 mr-2" />
-                    Agendar Reunión
-                  </Button>
-                </div>
-
-                {/* Quick Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {achievements.map((achievement, index) => (
-                    <div
-                      key={index}
-                      className={`transition-all duration-700 delay-${index * 100} ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}
+                  <div className="flex flex-col sm:flex-row gap-4 mb-12">
+                    <Button
+                      size="lg"
+                      className="bg-black text-white hover:bg-gray-800 font-medium tracking-wide px-8 py-4 group hover:scale-105 transition-all duration-300 relative overflow-hidden"
                     >
-                      <Card className="text-center hover:shadow-lg transition-shadow border-0 bg-white/50 backdrop-blur-sm">
-                        <CardContent className="p-4">
-                          <div className="flex justify-center mb-2 text-blue-600">{achievement.icon}</div>
-                          <div className="text-2xl font-bold text-gray-800">{achievement.number}</div>
-                          <div className="text-sm text-gray-600">{achievement.label}</div>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  ))}
-                </div>
-              </div>
+                      <span className="relative z-10 flex items-center">
+                        CONECTAR
+                        <ArrowUpRight className="h-4 w-4 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                      </span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-black scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                    </Button>
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="border-gray-300 text-gray-700 hover:bg-gray-50 bg-transparent font-medium tracking-wide px-8 py-4 hover:scale-105 hover:border-black transition-all duration-300 group"
+                    >
+                      AGENDAR REUNIÓN
+                      <ChevronRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                    </Button>
+                  </div>
 
-              <div className="relative">
-                <div className="relative z-10">
-                  <img
-                    src="./public/2ded5dff-ad3c-4662-8cd0-b7a2214c6249.jpeg"
-                    alt="Profesor Rafael Villegas"
-                    className="rounded-2xl shadow-2xl w-full max-w-md mx-auto"
-                  />
+                  {/* Quick Stats con animaciones */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    {achievements.map((achievement, index) => (
+                      <div
+                        key={index}
+                        className="text-center group cursor-pointer hover:scale-110 transition-all duration-300"
+                        style={{ animationDelay: `${index * 200}ms` }}
+                      >
+                        <div className="text-2xl font-black text-black group-hover:text-blue-600 transition-colors duration-300">
+                          {achievement.number}
+                        </div>
+                        <div className="text-xs font-medium text-gray-500 tracking-widest group-hover:text-gray-700 transition-colors duration-300">
+                          {achievement.label}
+                        </div>
+                        <div className="text-xs text-gray-400 tracking-wide">{achievement.sublabel}</div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="absolute -top-4 -right-4 w-full h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl opacity-20"></div>
-                <div className="absolute -bottom-4 -left-4 w-full h-full bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl opacity-10"></div>
+
+                <div className="relative">
+                  <div
+                    className="aspect-square bg-gray-100 rounded-2xl overflow-hidden hover:scale-105 transition-all duration-500 cursor-pointer group"
+                    style={{
+                      transform: `translate(${parallaxOffset.x}px, ${parallaxOffset.y}px)`,
+                    }}
+                  >
+                    <img
+                      src="./public/2ded5dff-ad3c-4662-8cd0-b7a2214c6249.jpeg"
+                      alt="Profesor Rafael Villegas"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    {/* Overlay con efecto */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  </div>
+                  <div className="absolute -bottom-6 -right-6 bg-black text-white p-4 rounded-lg hover:scale-110 hover:rotate-3 transition-all duration-300 cursor-pointer">
+                    <div className="text-sm font-black tracking-wide">15+ AÑOS</div>
+                    <div className="text-xs text-gray-300">EXPERIENCIA</div>
+                  </div>
+                  {/* Elementos decorativos */}
+                  <div className="absolute -top-4 -left-4 w-8 h-8 border-2 border-gray-300 rounded-full animate-pulse"></div>
+                  <div className="absolute -bottom-4 -left-4 w-4 h-4 bg-black rounded-full animate-bounce"></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Historia Section */}
-      <section className="py-20 px-4 bg-white">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <Badge className="mb-4 bg-purple-100 text-purple-800 hover:bg-purple-200">
-              <BookOpen className="h-4 w-4 mr-2" />
-              Nuestra Historia
-            </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">El Camino Hacia la Excelencia</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Desde sus inicios como docente universitario hasta la creación de esta plataforma, conoce la historia
-              detrás de CodeAcademy Pro
-            </p>
-          </div>
+      {/* Timeline Section */}
+      <section className="py-20 px-6 bg-gray-50 relative overflow-hidden">
+        {/* Efectos de fondo */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-xl animate-pulse"></div>
+          <div
+            className="absolute bottom-20 right-20 w-40 h-40 bg-gradient-to-r from-purple-500/5 to-pink-500/5 rounded-full blur-xl animate-pulse"
+            style={{ animationDelay: "2s" }}
+          ></div>
+        </div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="relative">
-              {/* Timeline Line */}
-              <div className="absolute left-8 md:left-1/2 transform md:-translate-x-px h-full w-0.5 bg-gradient-to-b from-blue-600 to-purple-600"></div>
+        <div className="container mx-auto relative z-10">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-black mb-6">
+                <span className="inline-block hover:scale-105 transition-transform duration-300 cursor-default">
+                  LÍNEA DE
+                </span>
+                <br />
+                <span className="inline-block hover:scale-105 transition-transform duration-300 cursor-default">
+                  EVOLUCIÓN
+                </span>
+              </h2>
+              <p className="text-lg text-gray-600 font-medium tracking-wide max-w-2xl mx-auto">
+                De profesor universitario a arquitecto de ecosistemas digitales
+              </p>
+            </div>
 
+            <div className="space-y-12">
               {timeline.map((item, index) => (
-                <div key={index} className="relative flex items-center mb-12">
-                  <div
-                    className={`flex ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} items-center w-full`}
-                  >
-                    {/* Timeline Point */}
-                    <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full border-4 border-white shadow-lg z-10"></div>
-
-                    {/* Content Card */}
-                    <div className={`w-full md:w-5/12 ml-16 md:ml-0 ${index % 2 === 0 ? "" : "md:mr-auto"}`}>
-                      <Card className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-0 bg-gradient-to-br from-white to-gray-50">
-                        <CardHeader>
-                          <div className="flex items-center space-x-3 mb-2">
-                            <div className="p-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg text-white group-hover:scale-110 transition-transform duration-300">
-                              {item.icon}
-                            </div>
-                            <Badge className="bg-blue-100 text-blue-800">{item.year}</Badge>
+                <div key={index} className="group" style={{ animationDelay: `${index * 200}ms` }}>
+                  <Card className="border-0 bg-white hover:bg-black transition-all duration-500 cursor-pointer hover:scale-105 hover:-translate-y-2 relative overflow-hidden">
+                    <CardContent className="p-8">
+                      <div className="grid md:grid-cols-4 gap-6 items-center">
+                        <div className="text-center md:text-left">
+                          <div className="text-3xl font-black text-black group-hover:text-white transition-colors duration-500 group-hover:scale-110 inline-block">
+                            {item.year}
                           </div>
-                          <CardTitle className="text-xl font-bold text-gray-800">{item.title}</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <CardDescription className="text-gray-600 leading-relaxed">
+                        </div>
+                        <div className="md:col-span-2">
+                          <h3 className="text-xl font-black tracking-wide text-black group-hover:text-white transition-colors duration-500 mb-2">
+                            {item.title}
+                          </h3>
+                          <p className="text-gray-600 group-hover:text-gray-300 transition-colors duration-500 leading-relaxed">
                             {item.description}
-                          </CardDescription>
-                        </CardContent>
-                      </Card>
-                    </div>
-                  </div>
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          <ArrowUpRight className="h-6 w-6 text-gray-400 group-hover:text-white transition-all duration-500 ml-auto group-hover:scale-110 group-hover:rotate-12" />
+                        </div>
+                      </div>
+                    </CardContent>
+                    {/* Efecto de brillo */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                  </Card>
                 </div>
               ))}
             </div>
@@ -235,173 +260,153 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* Mission & Values Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-blue-50 to-purple-50">
+      {/* Mission Section */}
+      <section className="py-20 px-6">
         <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <Badge className="mb-4 bg-blue-100 text-blue-800 hover:bg-blue-200">
-              <Compass className="h-4 w-4 mr-2" />
-              Misión y Valores
-            </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">¿Qué nos Motiva?</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Nuestros valores fundamentales guían cada decisión que tomamos para crear la mejor experiencia educativa
-            </p>
-          </div>
-
-          {/* Mission Statement */}
-          <div className="max-w-4xl mx-auto mb-16">
-            <Card className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 shadow-2xl">
-              <CardContent className="p-8 md:p-12 text-center">
-                <Quote className="h-12 w-12 mx-auto mb-6 opacity-50" />
-                <h3 className="text-2xl md:text-3xl font-bold mb-6">Nuestra Misión</h3>
-                <p className="text-lg md:text-xl leading-relaxed opacity-95">
-                  "Democratizar el acceso a la educación en programación, proporcionando contenido de alta calidad,
-                  claro y accesible para que cualquier persona, sin importar su origen o experiencia previa, pueda
-                  aprender a programar y transformar su futuro profesional."
-                </p>
-                <div className="mt-8 flex items-center justify-center space-x-2">
-                  <div className="w-2 h-2 bg-white rounded-full opacity-50"></div>
-                  <div className="w-2 h-2 bg-white rounded-full"></div>
-                  <div className="w-2 h-2 bg-white rounded-full opacity-50"></div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Values Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, index) => (
-              <Card
-                key={index}
-                className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-0 bg-white"
-              >
-                <CardHeader className="text-center">
-                  <div className="mx-auto mb-4 p-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full text-white group-hover:scale-110 transition-transform duration-300">
-                    {value.icon}
-                  </div>
-                  <CardTitle className="text-xl font-bold text-gray-800">{value.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-center text-gray-600 leading-relaxed">
-                    {value.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-black mb-8">
+                <span className="inline-block hover:scale-105 transition-transform duration-300 cursor-default">
+                  NUESTRA
+                </span>{" "}
+                <span className="inline-block hover:scale-105 transition-transform duration-300 cursor-default">
+                  MISIÓN
+                </span>
+              </h2>
+              <div className="max-w-4xl mx-auto">
+                <Card className="border-0 bg-black text-white hover:scale-105 transition-all duration-500 cursor-pointer group relative overflow-hidden">
+                  <CardContent className="p-12 text-center relative z-10">
+                    <p className="text-xl md:text-2xl font-medium leading-relaxed tracking-wide group-hover:scale-105 transition-transform duration-300">
+                      "DEMOCRATIZAR EL ACCESO A EDUCACIÓN DE PROGRAMACIÓN DE VANGUARDIA, EMPODERANDO A INDIVIDUOS PARA
+                      CONSTRUIR SOLUCIONES TECNOLÓGICAS ÉTICAS QUE MOLDEEN UN MEJOR FUTURO DIGITAL PARA LA HUMANIDAD."
+                    </p>
+                    <div className="mt-8 flex items-center justify-center space-x-2">
+                      <Circle className="w-2 h-2 bg-gray-600 rounded-full animate-pulse" />
+                      <Circle
+                        className="w-2 h-2 bg-white rounded-full animate-pulse"
+                        style={{ animationDelay: "0.5s" }}
+                      />
+                      <Circle
+                        className="w-2 h-2 bg-gray-600 rounded-full animate-pulse"
+                        style={{ animationDelay: "1s" }}
+                      />
+                    </div>
+                  </CardContent>
+                  {/* Efecto de gradiente */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </Card>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Methodology Section */}
-      <section className="py-20 px-4 bg-white">
+      {/* Principles Section */}
+      <section className="py-20 px-6 bg-gray-50">
         <div className="container mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <Badge className="mb-6 bg-purple-100 text-purple-800 hover:bg-purple-200 px-4 py-2">
-                <Zap className="h-4 w-4 mr-2" />
-                Metodología Única
-              </Badge>
-
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800">
-                Aprendizaje{" "}
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Efectivo
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-black mb-6">
+                <span className="inline-block hover:scale-105 transition-transform duration-300 cursor-default">
+                  PRINCIPIOS
+                </span>
+                <br />
+                <span className="inline-block hover:scale-105 transition-transform duration-300 cursor-default">
+                  FUNDAMENTALES
                 </span>
               </h2>
-
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                Nuestra metodología se basa en años de experiencia docente y está diseñada específicamente para
-                estudiantes autodidactas que buscan aprender programación de manera efectiva.
-              </p>
-
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="p-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg text-white mt-1">
-                    <Target className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-800 mb-2">Aprendizaje Progresivo</h4>
-                    <p className="text-gray-600">
-                      Cada concepto se construye sobre el anterior, asegurando una comprensión sólida
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="p-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg text-white mt-1">
-                    <Code className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-800 mb-2">Práctica Constante</h4>
-                    <p className="text-gray-600">
-                      Ejercicios prácticos en cada lección para reforzar el aprendizaje teórico
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="p-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg text-white mt-1">
-                    <Users className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-800 mb-2">Apoyo Continuo</h4>
-                    <p className="text-gray-600">Comunidad activa y soporte directo del profesor para resolver dudas</p>
-                  </div>
-                </div>
-              </div>
             </div>
 
-            <div className="relative">
-              <img
-                src="/placeholder.svg?height=400&width=500"
-                alt="Metodología de enseñanza"
-                className="rounded-2xl shadow-2xl w-full"
-              />
-              <div className="absolute -top-4 -right-4 w-full h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl opacity-10"></div>
+            <div className="grid md:grid-cols-2 gap-8">
+              {principles.map((principle, index) => (
+                <div key={index} className="group" style={{ animationDelay: `${index * 150}ms` }}>
+                  <Card className="border-0 bg-white hover:bg-black transition-all duration-500 cursor-pointer h-full hover:scale-105 hover:-translate-y-2 relative overflow-hidden">
+                    <CardContent className="p-8 relative z-10">
+                      <div className="flex items-start space-x-4">
+                        <div className="p-3 bg-gray-100 group-hover:bg-white rounded-lg group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
+                          <div className="text-gray-600 group-hover:text-black transition-colors duration-300">
+                            {principle.icon}
+                          </div>
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-black tracking-wide text-black group-hover:text-white transition-colors duration-500 mb-4">
+                            {principle.title}
+                          </h3>
+                          <p className="text-gray-600 group-hover:text-gray-300 transition-colors duration-500 leading-relaxed">
+                            {principle.description}
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                    {/* Efecto de brillo */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                  </Card>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-        <div className="container mx-auto text-center">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">¿Listo para Comenzar tu Transformación?</h2>
-            <p className="text-xl mb-8 opacity-90">
-              Únete a la comunidad de estudiantes que ya están cambiando sus vidas a través de la programación. El
-              profesor Rafael te acompañará en cada paso del camino.
+      <section className="py-20 px-6 bg-black text-white relative overflow-hidden">
+        {/* Efectos de fondo */}
+        <div className="absolute inset-0">
+          <div className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-xl animate-pulse"></div>
+          <div
+            className="absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-xl animate-pulse"
+            style={{ animationDelay: "2s" }}
+          ></div>
+        </div>
+
+        <div className="container mx-auto relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-8">
+              <span className="inline-block hover:scale-105 transition-transform duration-300 cursor-default">
+                ¿LISTO PARA
+              </span>
+              <br />
+              <span className="inline-block hover:scale-105 transition-transform duration-300 cursor-default bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                TRANSFORMARTE?
+              </span>
+            </h2>
+            <p className="text-xl text-gray-300 mb-12 font-medium tracking-wide">
+              Únete a la comunidad de desarrolladores construyendo la tecnología del mañana hoy
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-              <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold">
-                <Rocket className="h-5 w-5 mr-2" />
-                Comenzar Ahora
-                <ArrowRight className="h-5 w-5 ml-2" />
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+              <Button
+                size="lg"
+                className="bg-white text-black hover:bg-gray-100 font-medium tracking-wide px-8 py-4 group hover:scale-105 transition-all duration-300 relative overflow-hidden"
+              >
+                <span className="relative z-10 flex items-center">
+                  COMENZAR VIAJE
+                  <ArrowUpRight className="h-4 w-4 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-gray-100 to-white scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg bg-transparent"
+                className="border-gray-600 text-white hover:bg-gray-900 bg-transparent font-medium tracking-wide px-8 py-4 hover:scale-105 transition-all duration-300 group"
               >
-                <Coffee className="h-5 w-5 mr-2" />
-                Conocer los Cursos
+                EXPLORAR CURSOS
+                <Sparkles className="h-4 w-4 ml-2 group-hover:rotate-12 transition-transform duration-300" />
               </Button>
             </div>
 
-            <div className="flex justify-center items-center space-x-6 text-sm opacity-75">
-              <div className="flex items-center">
-                <CheckCircle className="h-4 w-4 mr-2" />
-                15+ años de experiencia
+            <div className="flex justify-center items-center space-x-8 text-sm text-gray-400 font-medium tracking-widest">
+              <div className="flex items-center group hover:text-white transition-colors duration-300">
+                <Circle className="h-2 w-2 mr-3 fill-current group-hover:scale-150 transition-transform duration-300" />
+                15+ AÑOS PROBADOS
               </div>
-              <div className="flex items-center">
-                <CheckCircle className="h-4 w-4 mr-2" />
-                5000+ estudiantes formados
+              <div className="flex items-center group hover:text-white transition-colors duration-300">
+                <Circle className="h-2 w-2 mr-3 fill-current group-hover:scale-150 transition-transform duration-300" />
+                5000+ ESTUDIANTES
               </div>
-              <div className="flex items-center">
-                <CheckCircle className="h-4 w-4 mr-2" />
-                Metodología probada
+              <div className="flex items-center group hover:text-white transition-colors duration-300">
+                <Circle className="h-2 w-2 mr-3 fill-current group-hover:scale-150 transition-transform duration-300" />
+                ENFOQUE ÉTICO
               </div>
             </div>
           </div>
@@ -409,97 +414,112 @@ export default function NosotrosPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-4">
+      <footer className="bg-white py-12 px-6 border-t border-gray-100">
         <div className="container mx-auto">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="col-span-2">
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-2 rounded-lg">
-                  <Code className="h-6 w-6 text-white" />
+          <div className="max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-4 gap-8">
+              <div className="col-span-2">
+                <div className="flex items-center space-x-3 mb-6 group cursor-pointer">
+                  <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
+                    <Code className="h-4 w-4 text-white group-hover:scale-110 transition-transform duration-300" />
+                  </div>
+                  <span className="text-xl font-black tracking-tight text-black group-hover:tracking-wide transition-all duration-300">
+                    CODELAB
+                  </span>
                 </div>
-                <span className="text-xl font-bold">CodeAcademy Pro</span>
+                <p className="text-gray-600 mb-6 max-w-md leading-relaxed">
+                  Ingeniería de ecosistemas digitales del mañana a través de educación de vanguardia y desarrollo de
+                  tecnología ética.
+                </p>
               </div>
-              <p className="text-gray-400 mb-4 max-w-md">
-                Plataforma educativa creada por el profesor Rafael para enseñar programación desde cero de manera clara
-                y accesible.
+
+              <div>
+                <h4 className="font-black text-black mb-4 tracking-wide text-sm">ENLACES RÁPIDOS</h4>
+                <ul className="space-y-3 text-gray-600">
+                  <li>
+                    <a
+                      href="#"
+                      className="hover:text-black transition-all duration-300 font-medium hover:translate-x-1 inline-block"
+                    >
+                      Cursos
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="hover:text-black transition-all duration-300 font-medium hover:translate-x-1 inline-block"
+                    >
+                      Recursos
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="hover:text-black transition-all duration-300 font-medium hover:translate-x-1 inline-block"
+                    >
+                      Nosotros
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="hover:text-black transition-all duration-300 font-medium hover:translate-x-1 inline-block"
+                    >
+                      Contacto
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="font-black text-black mb-4 tracking-wide text-sm">SOPORTE</h4>
+                <ul className="space-y-3 text-gray-600">
+                  <li>
+                    <a
+                      href="#"
+                      className="hover:text-black transition-all duration-300 font-medium hover:translate-x-1 inline-block"
+                    >
+                      Centro de Ayuda
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="hover:text-black transition-all duration-300 font-medium hover:translate-x-1 inline-block"
+                    >
+                      Comunidad
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="hover:text-black transition-all duration-300 font-medium hover:translate-x-1 inline-block"
+                    >
+                      Documentación
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="hover:text-black transition-all duration-300 font-medium hover:translate-x-1 inline-block"
+                    >
+                      Términos
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="border-t border-gray-100 mt-12 pt-8 text-center">
+              <p className="text-gray-500 font-medium tracking-wide">
+                &copy; 2024 CODELAB. TODOS LOS DERECHOS RESERVADOS. INGENIERÍA CON PRECISIÓN POR EL PROF. RAFAEL.
               </p>
-              <div className="flex space-x-4">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="border-gray-600 text-gray-400 hover:text-white hover:border-white bg-transparent"
-                >
-                  <Heart className="h-4 w-4" />
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="border-gray-600 text-gray-400 hover:text-white hover:border-white bg-transparent"
-                >
-                  <Globe className="h-4 w-4" />
-                </Button>
-              </div>
             </div>
-
-            <div>
-              <h4 className="font-semibold mb-4">Enlaces Rápidos</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Cursos
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Recursos
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Nosotros
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Contacto
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-semibold mb-4">Soporte</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Centro de Ayuda
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    FAQ
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Comunidad
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Términos
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 CodeAcademy Pro. Todos los derechos reservados. Creado con ❤️ por el Profesor Rafael.</p>
           </div>
         </div>
       </footer>
     </div>
   )
 }
+
 

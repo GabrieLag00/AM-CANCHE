@@ -1,20 +1,29 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { Button } from "@/components/ui/button"
-import { Code, Menu, X } from "lucide-react"
+import { Code, ArrowUpRight, Zap } from "lucide-react"
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
 
   const navigationItems = [
-    { name: "Home", path: "/" },
-    { name: "Nosotros", path: "/about" },
-    { name: "Cursos", path: "/courses" },
-    { name: "Recursos", path: "/resources" },
-    { name: "Contacto", path: "/contact" },
+    { name: "INICIO", path: "/" },
+    { name: "NOSOTROS", path: "/about" },
+    { name: "CURSOS", path: "/courses" },
+    { name: "RECURSOS", path: "/resources" },
+    { name: "CONTACTO", path: "/contact" },
   ]
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const isActivePath = (path: string) => {
     return location.pathname === path
@@ -26,74 +35,131 @@ export default function Navigation() {
   }
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
-      <div className="container mx-auto px-4 py-4">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "bg-white/95 backdrop-blur-xl border-b border-gray-200 shadow-lg"
+          : "bg-white/80 backdrop-blur-xl border-b border-gray-100"
+      }`}
+    >
+      <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2 cursor-pointer" onClick={() => handleNavigation("/")}>
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-2 rounded-lg">
-              <Code className="h-6 w-6 text-white" />
+          {/* Logo con animación */}
+          <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => handleNavigation("/")}>
+            <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
+              <Code className="h-4 w-4 text-white group-hover:scale-110 transition-transform duration-300" />
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              CodeAcademy Pro
+            <span className="text-xl font-black tracking-tight text-black group-hover:tracking-wide transition-all duration-300">
+              CODELAB
             </span>
+            <div className="w-2 h-2 bg-black rounded-full animate-pulse"></div>
           </div>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation con efectos hover */}
           <nav className="hidden md:flex items-center space-x-8">
-            {navigationItems.map((item) => (
+            {navigationItems.map((item, index) => (
               <button
                 key={item.name}
                 onClick={() => handleNavigation(item.path)}
-                className={`font-medium transition-colors ${
-                  isActivePath(item.path)
-                    ? "text-blue-600 border-b-2 border-blue-600 pb-1"
-                    : "text-gray-700 hover:text-blue-600"
+                className={`relative text-sm font-medium tracking-wide transition-all duration-300 hover:text-black group ${
+                  isActivePath(item.path) ? "text-black" : "text-gray-500 hover:text-black"
                 }`}
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 {item.name}
+                <span
+                  className={`absolute -bottom-2 left-0 h-0.5 bg-black transition-all duration-300 ${
+                    isActivePath(item.path) ? "w-full" : "w-0 group-hover:w-full"
+                  }`}
+                ></span>
+                {/* Efecto de brillo en hover */}
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
               </button>
             ))}
           </nav>
 
+          {/* CTA Buttons con animaciones */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50 bg-transparent">
-              Iniciar Sesión
+            <Button
+              variant="outline"
+              className="border-gray-300 text-gray-700 hover:bg-gray-50 bg-transparent font-medium tracking-wide hover:scale-105 hover:border-black transition-all duration-300 group"
+            >
+              SOLICITAR ACCESO
+              <Zap className="h-4 w-4 ml-2 group-hover:rotate-12 transition-transform duration-300" />
             </Button>
-            <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-              Comenzar Gratis
+            <Button className="bg-black text-white hover:bg-gray-800 font-medium tracking-wide group hover:scale-105 transition-all duration-300 relative overflow-hidden">
+              <span className="relative z-10 flex items-center">
+                CONSTRUIR FUTURO
+                <ArrowUpRight className="h-4 w-4 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+              </span>
+              {/* Efecto de onda en hover */}
+              <span className="absolute inset-0 bg-gradient-to-r from-gray-800 to-black scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button className="md:hidden p-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          {/* Mobile Menu Button con animación */}
+          <button
+            className="md:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors duration-300"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <div className="relative w-6 h-6">
+              <span
+                className={`absolute top-1 left-0 w-6 h-0.5 bg-black transition-all duration-300 ${
+                  isMenuOpen ? "rotate-45 translate-y-2" : ""
+                }`}
+              ></span>
+              <span
+                className={`absolute top-3 left-0 w-6 h-0.5 bg-black transition-all duration-300 ${
+                  isMenuOpen ? "opacity-0" : ""
+                }`}
+              ></span>
+              <span
+                className={`absolute top-5 left-0 w-6 h-0.5 bg-black transition-all duration-300 ${
+                  isMenuOpen ? "-rotate-45 -translate-y-2" : ""
+                }`}
+              ></span>
+            </div>
           </button>
         </div>
 
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-gray-200">
-            <nav className="flex flex-col space-y-4 mt-4">
-              {navigationItems.map((item) => (
+        {/* Mobile Menu con animación slide */}
+        <div
+          className={`md:hidden overflow-hidden transition-all duration-500 ${
+            isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          }`}
+        >
+          <div className="mt-6 pb-6 border-t border-gray-100">
+            <nav className="flex flex-col space-y-6 mt-6">
+              {navigationItems.map((item, index) => (
                 <button
                   key={item.name}
                   onClick={() => handleNavigation(item.path)}
-                  className={`text-left font-medium transition-colors ${
-                    isActivePath(item.path) ? "text-blue-600 font-semibold" : "text-gray-700 hover:text-blue-600"
+                  className={`text-left text-lg font-medium tracking-wide transition-all duration-300 hover:translate-x-2 ${
+                    isActivePath(item.path) ? "text-black font-bold" : "text-gray-500 hover:text-black"
                   }`}
+                  style={{
+                    animationDelay: `${index * 100}ms`,
+                    transform: isMenuOpen ? "translateX(0)" : "translateX(-20px)",
+                    transition: `all 0.3s ease ${index * 100}ms`,
+                  }}
                 >
                   {item.name}
                 </button>
               ))}
-              <div className="flex flex-col space-y-2 pt-4">
-                <Button variant="outline" className="border-blue-600 text-blue-600 bg-transparent">
-                  Iniciar Sesión
+              <div className="flex flex-col space-y-3 pt-6">
+                <Button
+                  variant="outline"
+                  className="border-gray-300 text-gray-700 bg-transparent font-medium hover:scale-105 transition-transform duration-300"
+                >
+                  SOLICITAR ACCESO
                 </Button>
-                <Button className="bg-gradient-to-r from-blue-600 to-purple-600">Comenzar Gratis</Button>
+                <Button className="bg-black text-white font-medium hover:scale-105 transition-transform duration-300">
+                  CONSTRUIR FUTURO
+                </Button>
               </div>
             </nav>
           </div>
-        )}
+        </div>
       </div>
     </header>
   )
